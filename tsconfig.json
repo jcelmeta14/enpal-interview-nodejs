@@ -2,7 +2,7 @@
   "extends": "@tsconfig/node18/tsconfig.json",
   "compilerOptions": {
     "lib": ["dom", "es2021"],
-    "module": "CommonJS",
+    "module": "Node16",
     "jsx": "preserve",
     "noEmit": true,
     "resolveJsonModule": true,

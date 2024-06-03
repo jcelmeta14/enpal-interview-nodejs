@@ -3,8 +3,8 @@ post-link:
   --url http://localhost:3000/link \
   --header 'Content-Type: application/json' \
   --data '{ \
-	"originalLink": "https://google.com" \
+	"originalLink": "https://restrictedii.net" \
 	}'
 get-link:
 	curl --request GET \
-		--url http://localhost:3000/abcdefghijk
+		--url http://localhost:3000/ebjs429?isAdult=true

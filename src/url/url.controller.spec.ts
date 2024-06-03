@@ -1,5 +1,6 @@
 import * as httpMocks from 'node-mocks-http';
 import { UrlController } from './url.controller';
+import { cacheService } from './chacheServiceClient';
 
 describe('UrlController', () => {
   let controller: UrlController;
@@ -9,20 +10,29 @@ describe('UrlController', () => {
   });
 
   it('Should create a short URL', async () => {
-    const request = httpMocks.createRequest();
+    const request = httpMocks.createRequest({
+      body: {
+        originalLink: 'https://www.example.com',
+      },
+    });
     const response = httpMocks.createResponse();
 
     await controller.createShortUrl(request, response);
 
-    expect(response._getData()).toBe('I will save the link');
+    expect(response._getData()).toBe('sptdh3e');
   });
 
   it('Should redirect a short URL to the original URL', async () => {
-    const request = httpMocks.createRequest();
+    cacheService.set('sptdh3e', 'https://www.example.com')
+    const request = httpMocks.createRequest({
+      params: {
+        slug: 'sptdh3e',
+      },
+    });
     const response = httpMocks.createResponse();
 
     await controller.redirectToOriginalUrl(request, response);
 
-    expect(response._getData()).toBe('I should parse the URL and redirect');
+    expect(response._getRedirectUrl()).toEqual('https://www.example.com');
   });
 });
